@@ -1,0 +1,33 @@
+git config --global user.name AnaNaira123
+git config --global user.email anaenaira635@gmail.com
+dotnet new sln --name Projeto3DS
+dotnet new mvc -o Projeto3DS
+dotnet sln add Projeto3DS\Projeto3DS.csproj
+
+cd Projeto3DS
+
+dotnet watch run
+
+dotnet add package Microsoft.EntityFrameworkCore --version 9.0.1
+dotnet add package Microsoft.EntityFrameworkCore.Design --version 9.0.1
+dotnet add package Microsoft.EntityFrameworkCore.Tools --version 9.0.1
+dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore --version 9.0.1
+dotnet add package MySql.EntityFrameworkCore --version 9.0.0
+
+Criar a camada de dados (criar as classes na models)
+    Categoria
+    Produto
+    ProdutoFoto
+    Usuario
+
+Criar um contexto na pasta Data
+
+Configurar a ConnectionString no appsettings.json
+
+configurar os serviços de Contexto e Identity no Program.csproj
+
+Executar o Xampp e MySql
+
+Abrir o Terminal:
+    cd GStore
+    dotnet watch run
