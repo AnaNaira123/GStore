@@ -1,5 +1,5 @@
-git config --global user.name AnaNaira123
-git config --global user.email anaenaira635@gmail.com
+git config --global user.name "AnaNaira123"
+git config --global user.email "anaenaira635@gmail.com"
 dotnet new sln --name Projeto3DS
 dotnet new mvc -o Projeto3DS
 dotnet sln add Projeto3DS\Projeto3DS.csproj
