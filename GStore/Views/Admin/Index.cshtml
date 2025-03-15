@@ -1,8 +1,7 @@
 @{
     ViewData["Title"] = "Área Adminstrativa";
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>@ViewData["Title"]</h1>>
-
-<a href=" a asp-controller="Categorias" asp-action=""Index">Categorias</a>
+<h1 class="my-5">@ViewData["Title"]</h1>
+<a asp-controller="Categorias" asp-action=""Index">Categorias</a>
