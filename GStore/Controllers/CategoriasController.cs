@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GStore.Data;
 using GStore.Models;
@@ -73,9 +68,9 @@ namespace GStore.Controllers
                         Arquivo.CopyTo(stream);
                     }
                     categoria.Foto = "\\img\\categorias\\" + nomeArquivo;
-                      await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
                 }
-
+                TempData["Sucess"] = "Categoria Cadastrada com Sucesso";
                 return RedirectToAction(nameof(Index));
             }
             return View(categoria);
@@ -102,36 +97,43 @@ namespace GStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Foto")] Categoria categoria)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Foto")] Categoria categoria, IFormFile Arquivo)
         {
             if (id != categoria.Id)
-            {
                 return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    if (Arquivo != null)
+                    {
+                        string filename = categoria.Id + Path.GetExtension(Arquivo.FileName);
+                        string caminho = Path.Combine(_host.WebRootPath, "img\\categorias");
+                        string novoArquivo = Path.Combine(caminho, filename);
+                        using (var stream = new FileStream(novoArquivo, FileMode.Create))
+                        {
+                            Arquivo.CopyTo(stream);
+                        }
+                        categoria.Foto = "\\img\\categorias\\" + filename;
+                    }
+
                     _context.Update(categoria);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!CategoriaExists(categoria.Id))
-                    {
                         return NotFound();
-                    }
                     else
-                    {
                         throw;
-                    }
                 }
+
+                TempData["Success"] = "Categoria Alterada com Sucesso!";
                 return RedirectToAction(nameof(Index));
             }
             return View(categoria);
         }
-
         // GET: Categorias/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -162,6 +164,7 @@ namespace GStore.Controllers
             }
 
             await _context.SaveChangesAsync();
+            TempData["Sucesso"] = "Categoria Excluída com Sucesso!";
             return RedirectToAction(nameof(Index));
         }
 
