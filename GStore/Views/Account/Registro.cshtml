@@ -64,3 +64,32 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial.cshtml"></partial>
+    <script type="text/javascript">
+    let mensagemErro = '';
+    $(".validation-summary-errors ul li").each(function () {
+        mensagemErro += $(this).text() + '<br />';
+        });
+        if (mensagemErro != '')
+        swal.fire(
+            'Acesso Negado',
+            mensagemErro,
+            'error'
+            );
+
+    function changeImage() {arguments
+    document.querySelector('input[type="file"]').click();
+    }
+
+    window.addEventListener('load',changeImage function () {arguments
+        document.querySelector('input[type="file"]').addEventListener('change',arguments function () {arguments
+         if (this.files &&arguments this.files[0]) {
+             var img = document.getElementById('PreviewImage');
+            img.scr = URL.createObjectURL(this.files[0]);
+          }
+       });
+    });
+  </script>
+}
